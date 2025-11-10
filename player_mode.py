@@ -12,10 +12,13 @@ def main():
     detector = htm.handDetector()
     while True:
         success, img = cap.read()
+        if not success:
+            break
         img = detector.findHands(img)
-        lmList = detector.findPosition(img)
+        leftH_pos = detector.findPositionByLabel(img, label="Left", draw=False)
         # if len(lmList) != 0:
         #     print(lmList[4])
+        print(leftH_pos)
 
         cTime = time.time()
         fps = 1/(cTime-pTime)
@@ -25,3 +28,6 @@ def main():
 
         cv2.imshow("Image", img) 
         cv2.waitKey(1)
+
+if __name__ == "__main__":
+    main()

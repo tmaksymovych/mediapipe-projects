@@ -17,11 +17,14 @@ DOUBLE_CLICK_WINDOW = 0.5
 
 while True:
     success, img = cap.read()
+    if not success:
+        break
+    img = cv2.flip(img,1)
     img = detector.findHands(img)
-    lmList = detector.findPosition(img,draw=False)
-    if len(lmList) != 0:
-        finger_tip = lmList[8]
-        finger_pip = lmList[7]
+    leftH_pos = detector.findPositionByLabel(img, label="Right", draw=False)
+    if len(leftH_pos) != 0:
+        finger_tip = leftH_pos[8]
+        finger_pip = leftH_pos[7]
         
         y_tip = finger_tip[2]
         y_dip = finger_pip[2]
