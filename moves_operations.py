@@ -8,7 +8,7 @@ import pyautogui
 
 pTime = 0
 cTime = 0
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 detector = htm.handDetector()
 finger_was_up = False
 click_count = 0
@@ -48,11 +48,8 @@ while True:
             pyautogui.press("down")
             click_count = 0
 
-
-
         finger_was_up = finger_is_up
 
-        
     cTime = time.time()
     fps = 1/(cTime-pTime)
     pTime = cTime
@@ -61,3 +58,10 @@ while True:
 
     cv2.imshow("Image", img) 
     cv2.waitKey(1)
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
